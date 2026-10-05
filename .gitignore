@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+.streamlit/secrets.toml
+
+# Node / React
+web-app/node_modules/
+web-app/dist/
+web-app/.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data / secrets - keep repo clean for paper
+*.csv
+*.pdf
+*.pkl
+ppg_wearable_features.csv
+mitbih_features.csv
+
+# Old builds - don't push every zip to GitHub
+pulseware-*.zip
+*.zip

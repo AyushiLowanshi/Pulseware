@@ -1,51 +1,81 @@
-# Heart Rhythm & Health Prediction — UI redesign
+# Pulseware â€” Heart Rhythm & Health Prediction
 
-Both front-ends were restyled to follow **Apple Health's** design language:
-a grouped light-gray canvas, white inset cards with hairline separators (no
-borders, no shadows), system type with a large bold title and small uppercase
-section headers, one category tint (heart pink `#FF2D55`) plus iOS blue for
-actions, and semantic green / orange / red used *only* for status.
+Pulseware is a decision-support prototype that helps you understand your heart rhythm from everyday wearable data. It learns what is normal for *you* from your history and flags new readings that look different from your usual pattern. It is not a medical device.
 
-All features, flows, model logic, prompts, CSV/alias handling and Gemini
-reading are unchanged — only presentation and layout moved.
+### Features
+
+**Tier 1: Continuous Monitoring**
+- Builds a personalized baseline from your PPG-derived history (BPM, SDNN, RMSSD)
+- Scores new readings as Normal, Monitor, or Flag for review with an explanation
+- Handles post-exercise recovery (2-hour window â†’ Expected recovery) and supports symptom-based escalation
+- Upload a reading via CSV, Excel, image or PDF â€” screenshots are read with Google Gemini Vision AI
+
+**History**
+- View your recent heart rate & HRV chart and all recent checks in one place
+
+**Tier 2: ECG Snapshot**
+- On-demand classification of single-lead ECG snapshots (Normal, PVC-like, AFib-like, Bradycardia-like, Abnormal)
+- Upload an ECG as image, PDF or CSV, or enter values manually
+- Safety guardrails check heart rate, QTc, QRS width and P-wave
+- Trained on MIT-BIH Arrhythmia Database when available, otherwise synthetic data
+
+### Tech Stack
+
+- **Streamlit** (Python) â€” `app.py`, `anomaly_model.py`, `ecg_classifier.py`
+- **React + Vite** â€” `web-app/src/App.jsx`
+- **Models:** Isolation Forest (personal baseline), Random Forest (ECG)
+- **Vision:** Google Gemini for screenshot/PDF reading
+
+### Project Structure
 
 ```
-heart-app/
-├── app.py                    Streamlit app (restyled; logic untouched)
-├── .streamlit/config.toml    Streamlit theme (canvas, card, accent colours, font)
-├── anomaly_model.py          unchanged
-├── ecg_classifier.py         unchanged
-├── field_aliases.py          unchanged
-├── file_reading.py           unchanged (API key now read from GEMINI_API_KEY first)
-├── baseline_threshold.py     unchanged
-├── generate_dummy_data.py    sample-data generators the Streamlit app imports
-├── requirements.txt
-├── screenshots/              what the redesign looks like
-└── web-app/                  React app (Vite)
-    ├── src/App.jsx           redesigned UI, same state/logic
-    ├── src/styles.css        the design system (new — replaces inline styles)
-    ├── src/main.jsx          imports styles.css
-    ├── index.html, vite.config.js, package.json
-    └── .env.example          VITE_GEMINI_API_KEY for screenshot / PDF reading
+Pulseware/
+â”œâ”€â”€ app.py                    # Streamlit app
+â”œâ”€â”€ .streamlit/config.toml    # Theme
+â”œâ”€â”€ anomaly_model.py          # Tier 1 baseline model
+â”œâ”€â”€ ecg_classifier.py         # Tier 2 ECG classifier
+â”œâ”€â”€ field_aliases.py          # Field definitions
+â”œâ”€â”€ file_reading.py           # File + Gemini reading
+â”œâ”€â”€ baseline_threshold.py
+â”œâ”€â”€ generate_dummy_data.py    # Sample data
+â”œâ”€â”€ ppg_preprocessing.py      # PPG filtering & features
+â”œâ”€â”€ requirements.txt
+â”œâ”€â”€ screenshots/
+â””â”€â”€ web-app/                  # React app
+    â”œâ”€â”€ src/App.jsx
+    â”œâ”€â”€ src/styles.css
+    â”œâ”€â”€ src/main.jsx
+    â”œâ”€â”€ index.html
+    â”œâ”€â”€ vite.config.js
+    â””â”€â”€ package.json
 ```
 
-## Run
+### How to Run
+
+**Streamlit**
 
 ```bash
-# React
-cd web-app
-npm install
-cp .env.example .env        # add your Gemini key if you want image/PDF reading
-npm run dev                 # http://localhost:5173
-
-# Streamlit
 pip install -r requirements.txt
-streamlit run app.py        # http://localhost:8501
+streamlit run app.py
+# open http://localhost:8501
 ```
 
-If you are dropping this into your existing repo, the only React files you
-need are `web-app/src/App.jsx`, `web-app/src/styles.css` and the one-line
-`import "./styles.css";` in `main.jsx`. For Streamlit, copy `app.py`,
-`.streamlit/config.toml` and `generate_dummy_data.py` (if you don't already
-have one).
+**React**
 
+```bash
+cd web-app
+npm install
+cp .env.example .env   # add VITE_GEMINI_API_KEY if you want screenshot reading
+npm run dev            # open http://localhost:5173
+npm run build          # for production
+```
+
+The Gemini API key is optional. Get a free key at https://aistudio.google.com and set it as `GEMINI_API_KEY` (Streamlit) or `VITE_GEMINI_API_KEY` (React). Without it, you can still use CSV/manual entry.
+
+### Authors
+
+Yash Jashnani, Ayushi Lowanshi, Latifa Zaman
+
+### Disclaimer
+
+Pulseware is a research prototype for educational purposes. It does not provide medical diagnosis. Always consult a doctor for health concerns.

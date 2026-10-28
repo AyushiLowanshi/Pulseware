@@ -26,3 +26,10 @@ mitbih_features.csv
 # Old builds - don't push every zip to GitHub
 pulseware-*.zip
 *.zip
+.venv/
+node_modules/
+__pycache__/
+
+.venv/
+node_modules/
+__pycache__/

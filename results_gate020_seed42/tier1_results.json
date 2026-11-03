@@ -1,0 +1,142 @@
+{
+  "protocol": "per-subject 70/30 chronological split; reference = ECG-channel deviation (2 SD from the subject's own ECG baseline); models use PPG features only; matched 5% flag rate",
+  "headline_matched5": {
+    "iforest": {
+      "n": 327,
+      "positives": 96,
+      "sensitivity": 0.1458,
+      "specificity": 0.9524,
+      "precision": 0.56,
+      "false_alerts_per_day": 220.2,
+      "n_subjects": 18,
+      "sens_ci95_subject_boot": [
+        0.1188,
+        0.1846
+      ]
+    },
+    "ksd": {
+      "n": 327,
+      "positives": 96,
+      "sensitivity": 0.1354,
+      "specificity": 0.9481,
+      "precision": 0.52,
+      "false_alerts_per_day": 220.2,
+      "n_subjects": 18,
+      "sens_ci95_subject_boot": [
+        0.1011,
+        0.1714
+      ]
+    },
+    "ocsvm": {
+      "n": 327,
+      "positives": 96,
+      "sensitivity": 0.1354,
+      "specificity": 0.9481,
+      "precision": 0.52,
+      "false_alerts_per_day": 220.2,
+      "n_subjects": 18,
+      "sens_ci95_subject_boot": [
+        0.1,
+        0.1685
+      ]
+    },
+    "lof": {
+      "n": 327,
+      "positives": 96,
+      "sensitivity": 0.1458,
+      "specificity": 0.9524,
+      "precision": 0.56,
+      "false_alerts_per_day": 220.2,
+      "n_subjects": 18,
+      "sens_ci95_subject_boot": [
+        0.1188,
+        0.1846
+      ]
+    },
+    "ksd2_native": {
+      "n": 327,
+      "positives": 96,
+      "sensitivity": 0.4896,
+      "specificity": 0.8874,
+      "precision": 0.6438,
+      "false_alerts_per_day": 642.9,
+      "n_subjects": 18,
+      "sens_ci95_subject_boot": [
+        0.2884,
+        0.6637
+      ]
+    },
+    "ksd3_native": {
+      "n": 327,
+      "positives": 96,
+      "sensitivity": 0.2188,
+      "specificity": 0.9913,
+      "precision": 0.913,
+      "false_alerts_per_day": 202.6,
+      "n_subjects": 18,
+      "sens_ci95_subject_boot": [
+        0.0339,
+        0.4658
+      ]
+    }
+  },
+  "if_by_condition": {
+    "n": {
+      "('PPG-DaLiA', 'act0')": 20.0,
+      "('PPG-DaLiA', 'act6')": 3.0,
+      "('PPG-DaLiA', 'act7')": 2.0,
+      "('PPG-DaLiA', 'act8')": 66.0,
+      "('WESAD', 'amusement')": 48.0,
+      "('WESAD', 'meditation')": 126.0,
+      "('WESAD', 'stress')": 62.0
+    },
+    "positives": {
+      "('PPG-DaLiA', 'act0')": 3.0,
+      "('PPG-DaLiA', 'act6')": 0.0,
+      "('PPG-DaLiA', 'act7')": 1.0,
+      "('PPG-DaLiA', 'act8')": 1.0,
+      "('WESAD', 'amusement')": 13.0,
+      "('WESAD', 'meditation')": 30.0,
+      "('WESAD', 'stress')": 48.0
+    },
+    "sensitivity": {
+      "('PPG-DaLiA', 'act0')": 0.0,
+      "('PPG-DaLiA', 'act6')": null,
+      "('PPG-DaLiA', 'act7')": 1.0,
+      "('PPG-DaLiA', 'act8')": 0.0,
+      "('WESAD', 'amusement')": 0.231,
+      "('WESAD', 'meditation')": 0.033,
+      "('WESAD', 'stress')": 0.188
+    }
+  },
+  "ablation": {
+    "hr_only": {
+      "n": 329,
+      "positives": 97,
+      "sensitivity": 0.2371,
+      "specificity": 0.9397,
+      "precision": 0.6216,
+      "false_alerts_per_day": 323.9
+    },
+    "hr_rmssd": {
+      "n": 327,
+      "positives": 96,
+      "sensitivity": 0.1458,
+      "specificity": 0.9524,
+      "precision": 0.56,
+      "false_alerts_per_day": 220.2
+    },
+    "full": {
+      "n": 327,
+      "positives": 96,
+      "sensitivity": 0.1458,
+      "specificity": 0.9524,
+      "precision": 0.56,
+      "false_alerts_per_day": 220.2
+    }
+  },
+  "n_scored_pairs": 2618,
+  "skipped_subjects": [
+    "PPG-DaLiA:S06"
+  ]
+}
